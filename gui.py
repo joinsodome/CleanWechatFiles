@@ -78,7 +78,8 @@ class Ui_Form(QtWidgets.QWidget):
             QtWidgets.QMessageBox.about(self,'提示 - CleanWechatFiles GUI','已启动框架！这个过程比较复杂，心焦了可以看日志目录~')
             try:
                 frame_.run()
-            except:
+            except Exception as e:
+                print(e)
                 QtWidgets.QMessageBox.critical(self,'错误 - CleanWechatFiles GUI','发生不可抗拒错误，具体情况可看日志！')
             finally:
                 QtWidgets.QMessageBox.about(self,'提示 - CleanWechatFiles GUI','done~')

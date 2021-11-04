@@ -33,14 +33,11 @@ class Framework:
         self.take_path()
 
     def check(self):
-        if not os.path.exists(self.docpath):
-            print('没有该路径！')
-        else:
-            pid = psutil.pids()
-            for p in pid:
-                if 'Wechat' in psutil.Process(p).name():
-                    print('请关闭微信后重试！')
-                    sys.exit(1)
+        pid = psutil.pids()
+        for p in pid:
+            if 'Wechat' in psutil.Process(p).name():
+                print('请关闭微信后重试！')
+                sys.exit(1)
 
     def take_path(self):
         walk = []
@@ -89,8 +86,11 @@ class Framework:
         
     def __del__(self):
         os.chdir(self.app_path)
-        shutil.rmtree(self.docpath)
-        print('已清除完Wechat Files，正在清除临时文件夹……')
-        self.temp.cleanup()
-        print('已清除临时文件夹！')
-        print('CleanWechatFiles Framework已结束！')
+        try:
+            shutil.rmtree(self.docpath)
+            print('已清除完Wechat Files，正在清除临时文件夹……')
+            self.temp.cleanup()
+            print('已清除临时文件夹！')
+            print('CleanWechatFiles Framework已结束！')
+        except:
+            pass
